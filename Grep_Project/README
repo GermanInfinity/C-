@@ -1,0 +1,196 @@
+/*********************************************************
+ * Project 2: grep
+ * Comp 15 Fall 2018 
+ * 
+ * Author: Matias Korman and Akwarandu Nwachuku
+ *
+ *********************************************************/
+
+Description: This assignment serves as the starting point of our gerp project. 
+We created two .cpp files that would aid in the creation of gerp. One cpp
+traverses a file system and determines the files and folders in the directory.
+The second cpp cleans up a user's input into the gerp program we are creating.
+
+
+Acknowledgements: The TAs in Halligan
+
+FSTreeTraversal.cpp: Runs two functions get_files and get_directories
+StringProcessing.cpp: Strips a string of non-alphanumeric elements
+FSTree.h		: interface of FSTree class  (used to explore file 
+directories)
+FSTree.o		: compiled version of FSTree.cpp
+DirNode.h 		: interface of DirNode class (nodes used in FSTree)
+DirNode.o 		: compiled version of DirNode.cpp
+the_gerp		: compiled solution of this assignment (good for comparing 
+purposes)
+sampleExecution : files to test your program (one input and three outputs)
+test-dirs 		: simple template stack class used for DFS
+README 			: this file
+
+
+Compile/Run: To compile type clang++ FSTreeTraversal.cpp DirNode.o FSTree.o
+(FSTreeTraversal.cpp)      Run with ./a.out [FILE-PATH]
+			 To compile type clang++ StringProcessing.cpp
+(StringProcessing.cpp)      Run with ./a.out [STRING]
+
+Outline of data structure: No data structures were implemented in the first 
+half of this project. 
+
+Testing: No test files were creared, but testing primarily was done with 
+./a.out and files and folders on my computer, and also ./a.out "string".
+
+
+
+
+README -- Phase 2
+***SECOND PHASE FILES TO SUBMIT***
+
+
+Files --
+HashNode.h: Struct Interface for node in dynamic array of index
+ActualNode.h : Struct Interface for actual node located as a vector in 
+HashNode
+FileName.h: Struct Interface for filename struct
+Loc_Values.h: Interface for Location values of each key
+FSTreeTraversal_Test.cpp: Main test file that tests all functions
+FSTreeTraversal.cpp: Runs actual gerp implementation
+Index.cpp: Hash table class
+Index.h: Header for Hash table class
+
+Please take note, I do not have a main.cpp. 
+But instead I have run all my code from FSTreeTraversal.cpp
+To compile/run: Type make gerp, to execute type ./gerp [FILE_NAME]
+[FILE_NAME]: represents the file to be indexed
+
+Description of my work: 
+Work for this second phase began with the creation of an index class. The 
+first job of the Index class is to handle storing words in files. 
+Data Structure: This project is purely a trip down encapsulation lane. 
+The first layer- A dynamic array of vectors of HashNodes. 
+The second layer- A vector of Actual Nodes.
+The third layer- Another vector of Loc_Values nodes.
+
+The first layer: The first layer is a dynamic array of vectors, each position
+is able to accomodate for collisions of words hashed to the same index.
+HashNode holds a lower case occurence of a word. 
+It acts like a poster boy for each word that comes into the index. It allows
+for easy search on an insenstive search. It then has a vector of ActualNodes. 
+
+The second layer: ActualNodes holds the actual representation of a word and a
+vector of it's locations. 
+
+The third layer: The vector held by ActualNodes holds a Loc_Value struct
+which holds the index of a file_path and line number the word belongs. 
+
+There is another layer of complexity that ensures line numbers and lines are
+stored adequately. 
+There's a vector in the Index class that holds structs of filename 
+Nodes. Each filename struct holds a key(name) for the file_path and 
+a vector of strings for each line in the file_path. 
+Each Loc_value accompanied with each word int he hash table, has a reference
+index to it's line position in this vector that holds all the file names. 
+So when the user queries a word, a word is accompanied with it's Loc_values
+struct that contains two indexes; one for the position of the file and another
+for the index of the line. 
+
+EDGE CASES:
+The case a word that has not been inserted is inserted, we have to check that 
+position in the array, see if it's empty or not. If it is empty make a new 
+hashNode and populate, if it isn't, see what word is there. If it matches the 
+word we are putting in, just increment location values, if not; make a new 
+actual node and add to vector of hashnodes for that position.
+
+Challenges: 
+I did not actually face that many issues when completing this project. 
+I suppose it was down to the concept of what we had to implement was relatable
+to an index of a book. That way, I was never unsure of what I was doing at 
+each step. It was down to coming up with a strategy to efficiently store 
+words with collision in mind, and also to efficiently store words with regards
+to queriying the database for case sensitive and insensitive searches. 
+Although, at the tail end of my project I had to make a change to my data
+structure, it seemed cumbersome at first, but produced an easier more 
+manageable database. The change I made was to stop having a class that held
+a vector of my location nodes for each word. It did not make sense since I had
+to iterate through the vector in each class to get all locations, I'd have to
+make the vector public and thus it defeats the purpose of it being a class. 
+A simple solution was to instead of having a class, have another vector 
+instead that stores the location of each occurence of a word in a struct. 
+
+I just remembered I faced a huge challenge when coding up test cases. 
+Because I created my hashtable with the mind that it records by reading from
+a file, it was really difficult to create an Insert function. 
+
+Reflection: 
+I've come to terms strongly with the innner workings of classes and structs. 
+I now see the benefit of classes, structs, dynamic arrays, etc.: they help
+us use the computers memory efficiently for storing very very large 
+information. 
+It's like building a house, if you want to build a house that'd house many 
+people, you wouldn't just build a house that is vertically very tall, claiming
+each floor has 20 rooms; but instead you'd build a mix of the very tall and 
+very wide kind of house that'd house even more people than expected and 
+won't have disadvantage of toppling over at any time or the strain it'd take
+to build. 
+So data structures is about data management, allocation of the computers
+memory usage. 
+
+Testing -- 
+When building my index, I test on a single file in one of my comp15 
+directories. I check to see if the word count on words I put in a text 
+file is accurate. 
+I also look to see what numbers are given by the Hash function as indexes. 
+
+To see if words are being inserted into the database, I'd just run 
+both an insensitive and sensitive query search, with an expected
+output to cross check. 
+
+Since my insert function takes parameters that are reference to member
+variable of the class(line and file location), I would hard code those 
+parameters in to test. 
+
+To test expand I test load_factor_check and expand by inserting a huge load
+factor that ensures the array expands. I then cout the size of the new array
+and see how many elements I have in it to see it worked!
+I initially though to do this, but I realized it may be better to juset test
+individually. 
+
+I also individually tested all functions in my Index(hash_table) class, 
+this was suggested by TA Tawnia.
+
+Testing individually was more helpful than I thought! I caught a function
+that you'd expect to work with no trouble, given off some wrong responses. 
+Because I was doing an int / int I was not getting the correct value for a 
+response of tyoe double. The solution to do was to change the input size 
+to a type double. 
+
+I have to test my search functions in the function that tests my insert.
+I believe they both complement each other, and there functionality can be
+confirmed simultaneously.
+
+
+***Another last minute change***
+While testing I realized my expand function could just insert a hashnode
+as opposed to a word into the new dynamic array. This is much better because
+there would have been no way to get all the location information by grabbing
+only the words. So, to test this new insert function I made, since it accepts
+a Hashnode, I have to create two new hashnodes that hash to the same place
+and insert them. Then I chedk the total elements in the dynamic array, if it's
+two then it worked! Because I only inserted two new hashnodes with my new 
+insert function. It worked!
+So, I made another last minute change, and decided not to use an insert 
+function. Instead my expand function explictly inserts into the new hash 
+table. 
+
+ISSUE: My output matches the spec, please It would be so awesome if you could
+forgive the minor discrepancy at the end. I am not sure why it does not print
+goodbye and have a nice day, but while testing and in my code, it's set up for
+this operation. 
+
+Acknowledgements
+Lots of thanks to Kapil for helping with an idea for case sensitive storage.
+And also Aditi for line number and file_path storage. 
+I also learnt how to silence the argc warning from stack overflow. I use this: 
+(void)argc
+: Citation: https://stackoverflow.com/questions/40776233/how-do-i-get-rid
+-of-the-unused-parameter-warning-in-c-with
+-gcc-4-8-4-wunused-p

@@ -1,0 +1,19 @@
+COMP15 Lab 5: Solving Mazes with Recursion 
+Akwarandu Ugo Nwachuku
+October 16th, 2018 
+
+Description: This lab tasked us with making recursive calls to traverse a maze, in search of the desired location. 
+
+Acknowledgements: The TA's Clara and Tawnya, awesome. 
+
+Files: 
+maze.cpp : Cpp file that contained the recursive calls, and maze construction. 
+maze.h : header file that contains the declaration of all functions and variables. 
+
+Compile/Run: Compile by typing make maze.cpp
+
+Outline of data structure: In the lab we had some restrictions we had to follow when traversing the maze, in search of the final point. Once we found a path that was not desired, we marked it with a 'b', meaning we shouldn't traverse that path anymore. The whole trick about this lab, was recursion enables us move to any possible direction on the maze and mark what areas are good to go or not. It is like a very clever way of doing a permutation ;) 
+
+Testing: I actually did not test this lab; partly because I wanted to complete my homework and also because it took me too long to know what I was doing. 
+
+Thank you!

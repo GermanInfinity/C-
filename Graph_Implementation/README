@@ -1,0 +1,81 @@
+
+
+Homework 5: Graphs
+Author: Akwarandu Ugo Nwachuku
+Acknowledgements: Long hours into the night.
+Files: graph_ints.txt test file for a graph of ints
+		Actor.cpp/h: Contains actor class
+		another_Actor_file_test.txt
+		my_input_test.txt
+		myoutput.txt
+		my_output.txt
+		actor_file_test.txt
+			The above are test files created during testing.
+		Graph.cpp/h Contains Graph class
+		SixDegrees.cpp/h Contains SixDegrees class
+Compile instructions: To compile my test run make graphtest, to run in
+						interactive mode run ./graphtest, to run in file
+						mode run ./graphtest > "input_file.txt"
+					To compile my main run make sixdegrees, to run in
+						interactive mode run ./sixdegrees, to run in file
+						mode run ./sixdegrees > "input_file.txt"
+
+PURPOSE: The purpose of this program is to create a grpah capable of storing
+			vertices of an Actor object. The graph is also capable of storing 
+			other data types, as it is templated. The Assignment's goal was to
+			effificientlyfind the shortesdt path between two points in a graph
+			with Breadth-first search, and return this path(which in this case
+			arew similar movies between actors).
+
+OUTLINE: SixDegrees is the class that populates the graph and runs functions. 
+		Actor cpp is the class definition of each object in a vertice. 
+		Graph class returns the print out of the path, and finds edges 
+		and vertices. 
+TESTING: 
+To make my test, run make graphtest
+Run it in interactive mode with ./graphtest
+Run it in file mode with, ./graphtest > "input_file.txt"
+To make my main code, run make sixdegrees
+Run it in interactive mode with ./sixdegrees
+Run it in file mode with, ./sixdegrees > "input_file.txt"
+
+To start my testing, I begin by exploring what happens when I initialize an 
+actor from a text file I create, to validate if my populate_graph function 
+works correctly, I use the graph print_matrix function to print the 
+vertices and edges(to confirm movies are being added correctly aswell).
+First I check for actors in the graph, then i check for edges. 
+I check for one straight connection, between all actors; so, they have one
+movie in common. Then I check for sparsely connected movies between actors, 
+then I look individually at each actor's movie list. 
+
+In Add movie_function():
+Why am I making an array of movies and sending it to the add_edge function? 
+I'm doing this because I want to be easily able to connect the edges between 
+all actors with two for loops. 
+Then after successfully populating the edges and vertices, I run tests on 
+Breadth First Search.  Before I do that, I have to check the program is 
+receiving inputs correctly from the user and checking them for correctness. 
+Then, I check my report path function. 
+
+Report Path Function():
+Okay so first of all I check to see if I get an accurate costar distance by 
+getting the length of the path array. To see If I am actually correct, I have
+to draw out vertices and edges by hand and count the distance between Actors. 
+This is how I checked I was getting the correct costar distance and getting the
+correct edges between actors. I do this test, in interactive mode. Once I 
+found out that it was working well, I made the file-based mode, by creating my
+list of input test actors I determined there costar distances. I was 
+particularly sure to ensure every pair of actor is checked from the file. 
+Once I was done doing this, and making sure I was producing the correct
+outputs, I ran tests for my graph; testing the copy constructor, assignment 
+operator and tested a graph of different structures. Unfortunately, my 
+assignment operator for a graph did not work, i tested by creating two serparat
+graphs and tried to override one with the other, I'm not sure if it works, 
+when I call print on it, it prints outs the space it'd devote to printing out
+names of actors in the newly modified graph(without the actors names.)
+That's the only test that failed according to my knowledge, I tested a couple 
+of graph addition edge cases with my files: my_input_test.txt and
+actor_file_test.txt
+
+//This project has some interesting code, like in the find function in the 
+LinkedList class, this bit: more_to_search = (node != NULL);

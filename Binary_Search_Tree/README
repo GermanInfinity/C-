@@ -1,0 +1,31 @@
+COMP 15 Homework 4: Binary Search Trees
+Akwarandu Ugo Nwachuku 
+18/October/2018 ***Late token.
+
+Description: The purpose of this assignment was to implement a binary search tree data structure, with it's important functions (i.e, remove, insert, return tree_height, node_count, etc.)
+
+Acknowledgements: The TAs in Halligan
+
+Files:
+-BinarySearchTree.h: The header file declares all the functions and variables that make the binary search tree class work. 
+-BinarySearchTree.cpp: This class implements a binary search tree with all its functions. 
+-main.cpp: This file calls the binary search tree class and passes in values to the tree, it also creates a visual representation of the tree with a function "pretty_print".
+
+
+Compile/Run: 
+Compile by typing “make hw4” and run with “./hw4”. This outputs a tree with inserted node values in the main function.   i.e.
+                        _______________4______________
+               /                              \
+        _______2*______                  ______11______
+       /              \                /              \
+    ___1               3            ___9            __15*  
+   /                               /               /       
+  -6                               5*              13        
+                                                    \        
+                                                    14 
+
+Outline of data structure: 
+The data structure we created was the binary search tree. Binary search tree is a clever way to search a list for a value. I think of the tree as a representation of a binary search, the search which halves and sees if the value we are looking for is greater or smaller than the half of the total. The tree works with a structure for each node, and each node is capable of pointing to a left or right child. Each node contains a count, which is the number of times a node with a similar value has been inserted into a tree, and a data which is the actual value of the node. The tree has several functionalities, that operate with the use of recursion. Recursion enables us to do an operation at any level of the tree so long as we have not gotten the desired result or reached the base case. The best thing about this project was the use of recursion to move through the tree and implement our functions at different levels of the tree. I think this was the most difficult concept to get, but once learned, the functions become easier to execute. A number of helper functions were also created to help modularize the code; ensuring no function exceeds 30 lines. 
+
+Testing:
+Testing was done primarily in the main.cpp file. Manual insertions were made to the binary tree to confirm the capability of the insert function. The combine function was also checked in the main function. To test my remove function, I constructed my own tree and checked if remove worked for these cases: a leaf, one child, and two children. 

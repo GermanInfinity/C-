@@ -1,0 +1,21 @@
+COMP 15 Lab 3: Linked Lists
+Akwarandu Ugo Nwachuku
+25/September/2018
+Description: This lab was an introduction to the functionality of a circular sequence.
+Acknowledgements: TA’s who led my lab session.
+Files: CircularSequence.cpp- this file implements a circular sequence with functions that
+expand, addatback and addatfront to the circular sequence.
+Compile/Run: Compile by typing “make partyPlaylist” and run with “./partyPlaylist”. This
+produces “Hello World” as an output to the console.
+Data structure outline:
+Circular sequence work with dynamic arrays, the main difference however is they are
+able to loop around with the array, and have a front and back index pointer; that are not
+necessarily 0 and LENGTH. The main advantage of using a circular sequence is, it has
+less memory consumption as compared to a linear array. This is due to the fact that
+when we insert after deleting an element the first space is used after the last element.
+Testing:
+I tested by making sure my output was printing “Hello world”, and not “World twice like it
+was initially. I fixed my issue by realizing after expanding and creating a bigger list, we
+need to also reinitialize back, front and currentSize of the new list.
+
+

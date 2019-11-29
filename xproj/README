@@ -1,0 +1,36 @@
+/*********************************************************
+ * Project 2: grep
+ * Comp 15 Fall 2018 
+ * 
+ * Author: Matias Korman
+ *
+ *********************************************************/
+
+ This project focuses on implementing the Ornisberg bridge dilemma. It aims at 
+proving Euler’s claim that all islands cannot be reached without crossing over 
+a bridge twice. This program is for the curious student who wants to verify that 
+any initial path chosen, in plans to get to all islands without crossing a 
+bridge twice is
+This program aims to print out the paths traversed through the island, depending 
+on 
+the first bridge a student decides to cross; it then checks if the path included 
+crossing 
+a bridge twice or not. 
+Files:
+Bridges.txt: contains all the bridges and islands
+Queue.cpp
+Stack.cpp
+LinkedList.cpp
+Graph.cpp
+Bridges.cpp
+main.cpp
+To run my code type make bridges
+It runs in interactive mode. 
+out to the console the bridges to different islands, and ask user for an initial 
+move to
+reach all islands, thus for the first bridge he intends to cross. 
+
+Bridges uses a search algorithm that attempts to reach all vertices. Once all 
+vertices are 
+reached it returns the path traversed, and if a bridge was crossed twice, it also 
+reports that. 

@@ -1,0 +1,88 @@
+COMP 15 Project 1: The Biologists Grep
+Akwarandu Ugo Nwachuku 
+1/October/2018
+
+Description: The purpose of this assignment was to implement a database for a biologist. The idea is to have the database store genome sequences, delete sequences from the database and search for similarities with sequences in the database. 
+
+Acknowledgements: The TAs in Halligan
+
+Files:
+-Trie.cpp: This class implements the data structure that stores, deletes and queries genome sequences. 
+-Trie.h: Contains struct for each node which represents a stored character in the trie. 
+-main.cpp: This file acts as a driver for the Trie class, and also contains all the tests I ran (commented out).
+
+Compile/Run:
+To run my code run the command: ./main [input_file] [output_file]
+
+
+Outline of data structure: 
+I used a Trie to implement the database that stores sequences. A trie works fine because it can store singular characters and connect them to each other, representing a sequence. Each node is represented by a struct called Node. The Node struct has four pointers to space in memory, that represent the spaces in memory where an inserted A or C or G or T character is stored.  I employed the use of a Trie because I believe it is easier to visualize than say using a dynamic array or even a binary tree. In handling operations, such as search, the queried string traverses a path with similar characters until the similarity is broken or until the end of the sequence is reached. Below is an exaplanation of some of the things I learned in this project and the general flow of each of function. 
+
+Things I learned from this project: 
+The first thing I learned was to access a file path from the root. The directory is like a binary search tree. ~ is accessing the home directory, '.'' is accessing the current directory. I tried to run a cpp file, and it runs really weird with this form of output: 
+./test_main.cpp: line 1: /bin: Is a directory
+./test_main.cpp: line 2: Makefile: command not found
+./test_main.cpp: line 3: Makefile: command not found
+./test_main.cpp: line 4: Makefile: command not found
+./test_main.cpp: line 5: Makefile: command not found
+./test_main.cpp: line 6: Makefile: command not found
+./test_main.cpp: line 8: */: No such file or directory
+./test_main.cpp: line 14: using: command not found
+./test_main.cpp: line 16: syntax error near unexpected token `('
+./test_main.cpp: line 16: `int main()'
+But then, I was taught to make an executable with g++ test_main.cpp
+I forgot to learn thoroughly about the Makefile though, I made one by copy and paste and a little bit of helping out with a TA, but I feel I should get to know more sooner than later. 
+
+So another thing new that I learned, was about the placing of functions in the private and the public part of our header file. It is awesome, because now we can call functions in our class that require us to pass nodes and roots into the functions; for example, my print function takes in a root so it can recurse down the tree, it would have been difficult or impossible to call the print function in the main and pass in the root node of a created Trie object. I made them const and I don't know why. 
+
+
+So I have started my testing process. 
+Step 1: make an object of my Trie class. 
+Step 2: Try my print function, on a NULL case really. 
+Step 3: Insert into my trie. 
+
+So sometimes, I discover my print function isn't working. Then I try to fix it. 
+
+Step 4: Check my Trie with the working print function. 
+Step 5: Create more unit tests for my insert, insert through the file and check question mark case. 
+For checking question mark:
+Case 1: Check when I insert a sequence with a question mark into the root of an empty trie. 
+Case 2: Inserting with a question mark starting. 
+Case 3: Inserting with two question marks. 
+Case 4: Inserting to a a non-empty trie. 
+Case 5: Inserting with multiple question marks. 
+
+After doing this, 
+I would like to proceed on to remove. 
+I believe for my remove function, I may have to create a contains function. To check if the string to be removed is stored in the trie. I figured I'd make my approach to remove more intuitive. So when a sequence is inserted in the trie, I check if it exists in the tree. If it does, return true and then go to the last character of that sequence and change it's end of word marker. Then run a function that recursively deletes nodes in a branch with no children. This function goes from the bottom up and for this purpose we would have to use a parent pointer. To test my remove function, I changed my input from sequence.txt to be all input requests and no removes. Then in my main i manually removed from the trie. 
+A lot of my initial plans have been scraped while going through and doing this project. I initially thought I would use a converter_function and a contains function, but from the feedback I got from week 1 -- a converter_function is not only a bad name for a function, but on close inspection I may not need it. I like it because it ensures thsat lower case inputs work with my code, but since the input is restricted I guess I could overlook that. I've also gone on to make two very useful helper functions, and these ones are importsant because they are new to me. The new functions I made was capable of returning a pointer to a specifc address in memory; I think it's really good I finally learnt how to do this, because it'll help greatly when I try to modularize my code completely. I've also scraped the idea of using a parent function and have my remove work in a different way instead. My remove works like this, It recursively goes down the tree and through the sequence, once it's at the end of the tree it checks it's base case which is if it's a leaf, if it is it deletes and returns through the tree checking the base case as usual; and if it's not it does not delete. I put a conditional check that if it's not the end of the word and we don't have kids we keep keep recursing; and also a result tracker that takes the return value of true when we have reached the end of the sequence. It then ands it with other factors such as how many kids we have at a node to see if we can run a delete node as we recurse back upward. Remove was a very difficult function, but I think coding like this really introduced me to the facts of recursion. 
+To test my remove function
+I ran a couple of inserts and removed certain sequences. It works fine and even for the case of an astericks, the only issue I'm really running into is that once it deletes a sequence, it replaces what was there with a garbage value. I think this happens because the parent of the node that was deleted does not get reassigned, so instead the compiler gives it a garbage value, and it doesnt seg fault because we never try to access the location in memory again. This was the central problem in remove for me, assigning the parent of the node that was deleted to null. A way to bypass this, would be to edit the print function to never print out those specific garbage values, since there's only about three unique ones it prints out (p, ? and 0). Testig really helps, i was able to catch my code where it returns no match found when it removed something in the trie but didn't actually delete the node. I caught it and had it return that it actually removes something. 
+
+Another key note I have to mention is my remove works for asteriks. The only issue is it does not print out the deleted sequences. But it actually deletes the sequences from the tree. 
+
+The day before: 
+I've run into a lot of problems with my code. First off, insert was way too long. Even modularizing seems a stretch to get it below 30 lines. So I had to redo insert! Even before touching query. The good thing is, my approach to solving remove involved recursion so I was able to learn a good bit about how to do that there. I think I can easily make insert and even solve query with moderate difficulty. It was good I got practice with remove. I should have used recursion when I approached insert, but now I learnt recursion is a good way to solving problems. 
+So pracitce really pays off. Now I've completed insert in 39 lines, just by using Recursion. I suppose the fact I did not use an array for my pointers is the main issue I have such long cases. 
+
+Query: 
+Query was probarbly my best function to code because the innner workings of the recursion and obtaining the ratio of best match is perfect fit for displaying the power of recursion. The most important thing about my query function is that it recursively goes to the end of all nodes, once the match is done and once it's at a leaf it calculates the ratio of the percent match on that branch of the sub tree and compares it with the best ratio obtained so far. All the ratios are obtained at the base case, which is when we've recursed down to a leaf. There is an updated max_ratio variable which gets updated on each iteration, depending on if it is a better or worse ratio than the current ratio calculated at a leaf. I used stack overflow for the function that converts a double to a string. 
+How long does it take to make a query? 
+In my code it takes, O(n*log(N)) time to query, where n is the height of the tree. This happens to be the case, because when we query, in the worst case scenario we always have to check all the branches and extend till the leaf. 
+Testing is really good cause I came across the fact my query did not work when I queried something that was not in the tree, but works well when it's something that's in the tree. 
+
+// QUERY PSEUDO CODE
+// At each level of the trie we check for a match, 
+// if there's a match we recurse further and increase the match and depth. 
+// Once there isn't a match we change the complete marker, and recurse 
+// through other branches until we get to the leaf, then we calculate the 
+// ratio; we only change max_ratio once we found a better ratio. This is 
+// the value that then gets returned.
+
+Extra: 
+I've also gone on to create a manager function that handles inputs from a file and prints out to an output file. 
+The arguments to my main function are the input and output file and in the main.cpp I read through the input file passing in each line to the manager function in the Trie.cpp class. The manager function then accessess all the main functionalities each, and returns the outputs of remove and query for instance.
+This project is unending, the good side of things is I keep learning how to use recursion, I can't help but feel most of the work I did earlier seems redundant now that I see how recursion works better. 
+New additions: I made a new function that delivers the shortest sequence. Also learnt how to convert an int to a string with stack overflow. 
+
+Some individuals that offered solid help in my project were Emma, Kapil, Kevin, Clara, Emily, Jorge, Saad, and Favour!

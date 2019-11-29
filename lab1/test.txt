@@ -1,0 +1,12 @@
+I am your thoughts when things get shallow
+Don't hold enough to show anything for what you've done
+I'm under your control
+Look, I'm under you're control 
+look 
+LOOK AT ME! 
+
+Trees give us a way to cut short the distance of search by defining a path on each string inserted, thus if the queried string was to search the tree, if it were to stop following a certain path, we would have searched the similarity between both strings. Thus saving us the trouble of using for example a “for loop” to check the similarity of the queried string and the stored sequence. The “for loop” runs at a worst case time of O(n^(length(sequence))), whereas a tree may run at O(n.log (n)), where n is the length of the sequence. 
+Yes changes have to be made to a conventional tree to accommodate for this data and queries being made. It should be a combination of tries and binary search trees. Tries work a little faster than BST’s but use up more memory, they run a search operation in O(m) time where m is a length of the data in a node. BST’s run a search operation in O(h) time, where h is the height of the tree, but they use less memory. The tradeoff we find is a combination of the two: BST’s and Tries combined to form BSTries. BSTries takes the functionality of splitting an inserted node based on if the number(character converted) is less than or greater than the number in the root node.
+We are going to need a function that converts all our characters to numbers.
+When we have this conversion and a way of arranging our characters with regards to a left and right pointer, we can cut down our search time by half, resulting in a logarithmic run time. I suppose BSTries are considered as two structures in one- Binary Search Tree and Tries. They interact by the conversion fo characters to number and the comparison of the number values of each node. 
+How To Solve Insert Query and Remove requests? 

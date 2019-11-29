@@ -1,0 +1,22 @@
+COMP 15 Homework 3: Grocery Sim
+Akwarandu Ugo Nwachuku 
+1/October/2018
+
+Description: The purpose of this assignment was to test our understanding and use of one of the three learned data structures. We had an option to implement a simulator that stored and accessed data from a desired choice of data structure.
+
+Acknowledgements: The TAs in Halligan
+
+Files:
+-CheckoutQueue.h/cpp: This class implements the data structure that represents the queue of shoppers. The header file declares all it's functions and variables. 
+-GrocerySim.h/cpp: This class implements the simulation of the grocery store with a desired number of lanes and a continuous timer for all shoppers. It accesses data structures of the checkoutqueue class. 
+-testCheckoutQueue.cpp: This cpp file was where most of the tests for the checkoutqueue and grocerysim class were run. 
+
+Compile/Run: 
+Compile by typing “make driver” and run with “./driver 1 0 0”. The three integer arguements could be any integer value. It should output somehthing like this: 
+        Shopper 1 arrived at 1 with 6 items, took 6 units
+
+Outline of data structure: 
+The data structure I used to implement a shopping queue was a circular array. I used a circular array because I like that front and back are not determined by the 0 and n-1 index, and how it allows for flexibility of storage in the array. The circular array which I implemented in checkoutqueue represented the structure for a queue, the queue was then coalesced together in the grocery sim; and however many queues were required to be created, grocerysim would request that of the checkoutqueue class. On each queue, shoppers were stored in each slot of the queue. The shoppers had a struct data type. To organize all the queues in the grocery store, I used a dynamic array to hold all my queues. This was a better choice than a static array, because it is impossible to initialize the capacity of a static array at run time--and that is what the program is required to do(initialize how many lanes we want at run time). Thus, it made more sense to use something that'd expand based on the users request, hence the use of a dynamic array. 
+
+Testing:
+Testing was done in two phases, I first had to test my checkoutqueue class was working before accessing it in the grocerysim class. I test by creating my own make commands in the makefile; the aim was to implement another driver/main(testcircularqueue) I could run that'd better help me gauge the performance of my classes. In my testcheckoutqueue.cpp I even have two mains(one commented out), both showing tests for the checkoutqueue and the grocerysim. 
